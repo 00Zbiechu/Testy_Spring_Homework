@@ -1,7 +1,7 @@
 package pl.testy.zadanie.testy_spring_homework.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
+import pl.testy.zadanie.testy_spring_homework.entity.Person;
 import pl.testy.zadanie.testy_spring_homework.mapper.BaseMapper;
 import pl.testy.zadanie.testy_spring_homework.validator.BaseValidator;
 
@@ -21,8 +21,10 @@ public abstract class BaseService<E,D> {
         return getRepository().findAll().stream().map(getMapper()::toDTO).collect(Collectors.toList());
     }
 
-    public void create(D dto){
-        getRepository().save(getMapper().toEntity(dto));
+    public E create(D dto){
+        E entity = getMapper().toEntity(dto);
+        getRepository().save(entity);
+        return entity;
     }
 
     public void update(Long id,D dto){
@@ -30,8 +32,8 @@ public abstract class BaseService<E,D> {
         getRepository().save(getMapper().toEntity(dto));
     }
 
-    public void delete(D dto){
-        getRepository().delete(getMapper().toEntity(dto));
+    public void delete(Long id){
+        getRepository().deleteById(id);
     }
 
 

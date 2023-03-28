@@ -27,9 +27,9 @@ public abstract class BaseController<D,S extends BaseService>{
         return ResponseEntity.ok("update wykonany");
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> delete(@RequestBody D dto){
-        getService().delete(dto);
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id){
+        getService().delete(id);
         return ResponseEntity.ok("Usunięto");
     }
 
