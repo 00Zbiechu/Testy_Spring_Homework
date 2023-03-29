@@ -11,9 +11,11 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.testy.zadanie.testy_spring_homework.entity.Address;
 import pl.testy.zadanie.testy_spring_homework.entity.Person;
+import pl.testy.zadanie.testy_spring_homework.mapper.AddressMapper;
 import pl.testy.zadanie.testy_spring_homework.mapper.PersonMapper;
 import pl.testy.zadanie.testy_spring_homework.model.AddressDTO;
 import pl.testy.zadanie.testy_spring_homework.model.PersonDTO;
+import pl.testy.zadanie.testy_spring_homework.repository.AddressRepository;
 import pl.testy.zadanie.testy_spring_homework.repository.PersonReposiotry;
 
 import java.time.LocalDate;
@@ -30,6 +32,10 @@ class PersonServiceTest {
     @Mock
     PersonReposiotry personReposiotry;
 
+    @Mock
+    AddressRepository addressRepository;
+
+
     //Nie używam InjectMock, bo repo będzie takie samo dla wszystkich testów, a ja chcę dla każdego testu nowe.
     //@InjectMocks
     PersonService personService;
@@ -37,7 +43,7 @@ class PersonServiceTest {
 
     @BeforeEach
     void init(){
-        personService = new PersonService(personReposiotry,null,PersonMapper.INSTANCE);
+        personService = new PersonService(personReposiotry,null,PersonMapper.INSTANCE, addressRepository, AddressMapper.INSTANCE);
     }
 
 
@@ -126,6 +132,8 @@ class PersonServiceTest {
     @Test
     void create() {
 
+
+
         doNothing().when(personReposiotry).deleteById(anyLong());
 
         personService.delete(getRandomInt());
@@ -143,8 +151,23 @@ class PersonServiceTest {
     @DisplayName("Should save one person")
     @Test
     void save(){
-
         //given
+        AddressDTO addressDTO = AddressDTO.builder()
+                .communeCode("75-400")
+                .streetName("Podgorna")
+                .flatNumber("12")
+                .houseNumber("13")
+                .defaultAddress(false)
+                .build();
+
+        AddressDTO addressDTODefault = AddressDTO.builder()
+                .communeCode("75-400")
+                .streetName("TEST")
+                .flatNumber("12")
+                .houseNumber("13")
+                .defaultAddress(true)
+                .build();
+
         Person personToSave = Person.builder()
                 .firstName("Mateusz")
                 .lastName("Zbiewski")
@@ -159,9 +182,12 @@ class PersonServiceTest {
                                                                 .firstName("Mateusz")
                                                                 .lastName("Zbiewski")
                                                                 .birthDate(LocalDate.now())
-                                                                .defaultAddress(AddressDTO.builder().defaultAddress(true).build())
-                                                                .addresses(List.of(AddressDTO.builder().build()))
+                                                                .defaultAddress(addressDTODefault)
+                                                                .addresses(List.of(addressDTO))
                                                                 .build());
+
+
+
 
 
         //then
