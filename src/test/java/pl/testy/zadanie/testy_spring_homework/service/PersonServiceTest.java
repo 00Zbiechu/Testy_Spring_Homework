@@ -159,6 +159,8 @@ class PersonServiceTest {
                                                                 .firstName("Mateusz")
                                                                 .lastName("Zbiewski")
                                                                 .birthDate(LocalDate.now())
+                                                                .defaultAddress(AddressDTO.builder().defaultAddress(true).build())
+                                                                .addresses(List.of(AddressDTO.builder().build()))
                                                                 .build());
 
 
