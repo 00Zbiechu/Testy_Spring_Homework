@@ -18,16 +18,15 @@ public class PersonValidator implements BaseValidator<PersonDTO> {
 
     @Override
     public boolean validate(PersonDTO dto) {
-        if(dto.getBirthDate().isBefore(timeProvider.getLocalDate().minus(18,ChronoUnit.YEARS))
-        || dto.getBirthDate().isEqual(timeProvider.getLocalDate().minus(18,ChronoUnit.YEARS))){
+        if(dto.getBirthDate().isAfter(timeProvider.getLocalDate().minus(18,ChronoUnit.YEARS))){
 
-            return true;
+            return false;
 
         } else if (dto.getBirthDate()==null) {
 
             throw new WrongBirthdayException("Wrong date");
 
         }
-        return false;
+        return true;
     }
 }
