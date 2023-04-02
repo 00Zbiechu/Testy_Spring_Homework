@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class Person {
     private String lastName;
     private LocalDate birthDate;
 
-    @OneToMany(targetEntity = Address.class, mappedBy = "person")
-    private List<Address> address;
+    @OneToMany(mappedBy = "person")
+    private List<Address> address = new ArrayList<>();
 
 }

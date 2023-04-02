@@ -10,7 +10,7 @@ public abstract class BaseController<D,S extends BaseService>{
 
     protected abstract S getService();
 
-    @GetMapping
+    @GetMapping("/all")
     List<D> get(){
         return getService().get();
     }
