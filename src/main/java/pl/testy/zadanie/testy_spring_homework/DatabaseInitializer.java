@@ -18,9 +18,11 @@ public class DatabaseInitializer {
 
     private final AddressRepository addressRepository;
 
+    /*
     @PostConstruct
     public void initDatabase() {
 
+        /*
         Person person = Person.builder()
                 .firstName("Mateusz")
                 .lastName("Zbiewski")
@@ -55,6 +57,6 @@ public class DatabaseInitializer {
 
 
     }
-
+  */
 
 }

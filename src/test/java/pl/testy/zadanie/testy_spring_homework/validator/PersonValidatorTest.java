@@ -62,11 +62,10 @@ class PersonValidatorTest {
     public void should_throw_exception_for_birthday_equal_null(){
 
         //given
-        Mockito.when(timeProvider.getLocalDate()).thenReturn(LocalDate.now());
         PersonDTO personDTO = PersonDTO.builder().birthDate(null).build();
 
         //then
-        assertThrows(NullPointerException.class,() -> personValidator.validate(personDTO));
+        assertThrows(WrongBirthdayException.class,() -> personValidator.validate(personDTO));
 
 
     }

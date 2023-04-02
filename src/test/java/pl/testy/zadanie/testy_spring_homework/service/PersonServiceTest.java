@@ -32,8 +32,6 @@ class PersonServiceTest {
     @Mock
     PersonReposiotry personReposiotry;
 
-    @Mock
-    AddressRepository addressRepository;
 
 
     //Nie używam InjectMock, bo repo będzie takie samo dla wszystkich testów, a ja chcę dla każdego testu nowe.
@@ -43,7 +41,7 @@ class PersonServiceTest {
 
     @BeforeEach
     void init(){
-        personService = new PersonService(personReposiotry,null,PersonMapper.INSTANCE, addressRepository, AddressMapper.INSTANCE);
+        personService = new PersonService(personReposiotry,null,PersonMapper.INSTANCE);
     }
 
 

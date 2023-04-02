@@ -28,8 +28,10 @@ public class PersonService extends BaseService<Person, PersonDTO> {
     private final PersonMapper personMapper;
 
     //Address
+    /*
     private final AddressRepository addressRepository;
     private final AddressMapper addressMapper;
+    */
 
 
     @Override
@@ -47,6 +49,7 @@ public class PersonService extends BaseService<Person, PersonDTO> {
         return personMapper;
     }
 
+    /*
     @Override
     public Person create(PersonDTO dto) {
 
@@ -88,8 +91,8 @@ public class PersonService extends BaseService<Person, PersonDTO> {
 
             return person;
         }
+        */
 
-    }
 
 
 }

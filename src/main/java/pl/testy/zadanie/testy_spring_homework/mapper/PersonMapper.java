@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
+import org.springframework.util.CollectionUtils;
 import pl.testy.zadanie.testy_spring_homework.entity.Address;
 import pl.testy.zadanie.testy_spring_homework.entity.Person;
 import pl.testy.zadanie.testy_spring_homework.model.AddressDTO;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 
 
 
-@Mapper(uses = {PersonMapper.class}, componentModel = "spring")
+@Mapper(uses = {PersonMapper.class,AddressMapper.class}, componentModel = "spring")
 public interface PersonMapper extends BaseMapper<Person, PersonDTO> {
 
     PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
@@ -30,18 +31,21 @@ public interface PersonMapper extends BaseMapper<Person, PersonDTO> {
 
     @Named("addressToDefaultAddress")
     default AddressDTO addressToDefaultAddress(List<Address> address){
-
+        if(CollectionUtils.isEmpty(address)){
+            return null;
+        }
         return address.stream()
                 .filter(Address::isDefaultAddress)
-                .distinct().map(AddressMapper.INSTANCE::toDTO)
-                .toList().get(0);
+                .distinct().map(AddressMapper.INSTANCE::toDTO).findFirst().orElse(null);
 
     }
 
 
     @Named("noAddressToDefaultAddress")
     default List<AddressDTO> noAddressToDefaultAddress(List<Address> address){
-
+        if(CollectionUtils.isEmpty(address)){
+            return null;
+        }
         return address.stream()
                 .filter(e-> !e.isDefaultAddress())
                 .map(AddressMapper.INSTANCE::toDTO)
