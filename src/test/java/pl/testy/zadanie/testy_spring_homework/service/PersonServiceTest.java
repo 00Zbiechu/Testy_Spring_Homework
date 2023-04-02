@@ -176,7 +176,7 @@ class PersonServiceTest {
 
 
         //when
-        Person actual = personService.create(PersonDTO.builder()
+        List<PersonDTO> actual = personService.create(PersonDTO.builder()
                                                                 .firstName("Mateusz")
                                                                 .lastName("Zbiewski")
                                                                 .birthDate(LocalDate.now())
@@ -192,9 +192,9 @@ class PersonServiceTest {
         verify(personReposiotry, times(1)).save(any(Person.class));
         verifyNoMoreInteractions(personReposiotry);
         assertAll(
-                ()-> assertEquals(personToSave.getFirstName(),actual.getFirstName()),
-                ()-> assertEquals(personToSave.getLastName(),actual.getLastName()),
-                ()-> assertEquals(personToSave.getBirthDate(),actual.getBirthDate())
+                ()-> assertEquals(personToSave.getFirstName(),actual.get(0).getFirstName()),
+                ()-> assertEquals(personToSave.getLastName(),actual.get(0).getLastName()),
+                ()-> assertEquals(personToSave.getBirthDate(),actual.get(0).getBirthDate())
         );
 
 

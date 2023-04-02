@@ -21,19 +21,22 @@ public abstract class BaseService<E,D> {
         return getRepository().findAll().stream().map(getMapper()::toDTO).collect(Collectors.toList());
     }
 
-    public E create(D dto){
+    public List<D> create(D dto){
         E entity = getMapper().toEntity(dto);
         getRepository().save(entity);
-        return entity;
+        return List.of(dto);
     }
 
-    public void update(Long id,D dto){
+    public List<D> update(Long id,D dto){
         getRepository().deleteById(id);
         getRepository().save(getMapper().toEntity(dto));
+        return List.of(dto);
     }
 
-    public void delete(Long id){
+    public List<D> delete(Long id){
+        D dto = getMapper().toDTO(getRepository().getReferenceById(id));
         getRepository().deleteById(id);
+        return List.of(dto);
     }
 
 

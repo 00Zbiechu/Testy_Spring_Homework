@@ -2,23 +2,25 @@ package pl.testy.zadanie.testy_spring_homework.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pl.testy.zadanie.testy_spring_homework.service.BaseService;
 
+import java.net.URI;
 import java.util.List;
 
 public abstract class BaseController<D,S extends BaseService>{
 
     protected abstract S getService();
 
-    @GetMapping("/all")
+    @GetMapping
     List<D> get(){
         return getService().get();
     }
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody D dto){
+    List<D> create(@RequestBody D dto){
         getService().create(dto);
-        return ResponseEntity.ok("Zapisano");
+        return List.of(dto);
     }
 
     @PutMapping("{id}")
