@@ -1,9 +1,11 @@
 package pl.testy.zadanie.testy_spring_homework.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.testy.zadanie.testy_spring_homework.model.AddressDTO;
+import pl.testy.zadanie.testy_spring_homework.model.AddressListResponse;
 import pl.testy.zadanie.testy_spring_homework.service.AddressService;
 
 @RestController
@@ -17,4 +19,11 @@ public class AddressController extends BaseController<AddressDTO, AddressService
     protected AddressService getService() {
         return addressService;
     }
+
+
+    @GetMapping("/all")
+    public AddressListResponse getAll(){
+        return new AddressListResponse(addressService.get());
+    }
+
 }

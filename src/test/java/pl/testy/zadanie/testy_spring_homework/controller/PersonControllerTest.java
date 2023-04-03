@@ -34,7 +34,7 @@ class PersonControllerTest extends BaseApiTest {
 
 
 
-    @DisplayName("Test /api/person/all should return List of PersonDTO")
+    @DisplayName("Test /api/person/all method @Get should return List of PersonDTO")
     @Test
     void testOfGetOperationsShouldReturnListOfPersonDTO() throws Exception {
         //given
@@ -53,7 +53,7 @@ class PersonControllerTest extends BaseApiTest {
 
     }
 
-    @DisplayName("Test /api/person/save should save Person to Database")
+    @DisplayName("Test /api/person method @Post should save Person to Database")
     @Test
     void testOfPostOperationsShouldSaveNewPersonToDatabase() throws Exception {
 
@@ -76,7 +76,7 @@ class PersonControllerTest extends BaseApiTest {
 
     }
 
-    @DisplayName("Test /api/person/update should update Person in Database")
+    @DisplayName("Test /api/person method @Put should update Person in Database")
     @Test
     public void testOfPutOperationShouldUpdatePersonInDatabase() throws Exception
     {
@@ -101,7 +101,7 @@ class PersonControllerTest extends BaseApiTest {
 
 
 
-    @DisplayName("Test /api/person/delete should delete one Person from Database")
+    @DisplayName("Test /api/person method @Delete should delete one Person from Database")
     @Test
     public void testOfDeleteOperationsShouldDeletePerson() throws Exception
     {
