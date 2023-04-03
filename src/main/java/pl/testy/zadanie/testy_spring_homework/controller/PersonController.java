@@ -26,22 +26,4 @@ public class PersonController extends BaseController<PersonDTO, PersonService>{
         return new PersonListResponse(personService.get());
     }
 
-
-    @PostMapping("/save")
-    public PersonListResponse save(@RequestBody PersonDTO personDTO){
-        return new PersonListResponse(personService.create(personDTO));
-    }
-
-
-    @PutMapping("/update/{id}")
-    public PersonListResponse put(@PathVariable Long id, @RequestBody PersonDTO personDTO){
-        return new PersonListResponse(personService.update(id,personDTO));
-    }
-
-
-    @DeleteMapping("/delete/{id}")
-    public PersonListResponse deleteById(@PathVariable Long id){
-        return new PersonListResponse(personService.delete(id));
-    }
-
 }

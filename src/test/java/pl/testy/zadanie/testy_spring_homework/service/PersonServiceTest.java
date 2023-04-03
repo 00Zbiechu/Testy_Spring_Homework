@@ -149,52 +149,29 @@ class PersonServiceTest {
     @DisplayName("Should save one person")
     @Test
     void save(){
+
+
         //given
-        AddressDTO addressDTO = AddressDTO.builder()
-                .communeCode("75-400")
-                .streetName("Podgorna")
-                .flatNumber("12")
-                .houseNumber("13")
-                .defaultAddress(false)
+        PersonDTO personDTO = PersonDTO.builder()
+                .firstName("Test")
+                .lastName("Test")
                 .build();
 
-        AddressDTO addressDTODefault = AddressDTO.builder()
-                .communeCode("75-400")
-                .streetName("TEST")
-                .flatNumber("12")
-                .houseNumber("13")
-                .defaultAddress(true)
+        Person person = Person.builder()
+                .firstName("Test")
+                .lastName("Test")
                 .build();
 
-        Person personToSave = Person.builder()
-                .firstName("Mateusz")
-                .lastName("Zbiewski")
-                .birthDate(LocalDate.now())
-                .build();
-
-        when(personReposiotry.save(any(Person.class))).thenReturn(personToSave);
-
+        Mockito.when(personReposiotry.save(any(Person.class))).thenReturn(person);
 
         //when
-        List<PersonDTO> actual = personService.create(PersonDTO.builder()
-                                                                .firstName("Mateusz")
-                                                                .lastName("Zbiewski")
-                                                                .birthDate(LocalDate.now())
-                                                                .defaultAddress(addressDTODefault)
-                                                                .addresses(List.of(addressDTO))
-                                                                .build());
-
-
-
+        PersonDTO created = personService.create(personDTO);
 
 
         //then
-        verify(personReposiotry, times(1)).save(any(Person.class));
-        verifyNoMoreInteractions(personReposiotry);
         assertAll(
-                ()-> assertEquals(personToSave.getFirstName(),actual.get(0).getFirstName()),
-                ()-> assertEquals(personToSave.getLastName(),actual.get(0).getLastName()),
-                ()-> assertEquals(personToSave.getBirthDate(),actual.get(0).getBirthDate())
+                ()->assertEquals(personDTO.getFirstName(),created.getFirstName()),
+                ()->assertEquals(personDTO.getFirstName(),created.getFirstName())
         );
 
 

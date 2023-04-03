@@ -62,17 +62,17 @@ class PersonControllerTest extends BaseApiTest {
 
 
         //when
-        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.post(PERSON_CONTROLLER_PATH+"/save")
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.post(PERSON_CONTROLLER_PATH)
                 .content(asJson(personDTO))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON));
 
 
         resultActions
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.persons[0].id").value(String.valueOf(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.persons[0].firstName").value("Test"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.persons[0].lastName").value("Test"));
+                .andExpect(status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(String.valueOf(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Test"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value("Test"));
 
     }
 
@@ -88,14 +88,14 @@ class PersonControllerTest extends BaseApiTest {
 
 
         ResultActions resultActions = mockMvc.perform( MockMvcRequestBuilders
-                        .put(PERSON_CONTROLLER_PATH+"/update/{id}", 1)
+                        .put(PERSON_CONTROLLER_PATH+"/{id}", 1L)
                         .content(asJson(personDTO))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON));
 
          resultActions
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.persons[0].lastName").value("Zbiewski"));
+                .andExpect(status().isAccepted())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value("Zbiewski"));
     }
 
 
@@ -109,13 +109,10 @@ class PersonControllerTest extends BaseApiTest {
         personReposiotry.saveAll(PersonTestDataProvider.prepareMockData());
 
         //when
-        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.delete(PERSON_CONTROLLER_PATH+"/delete/{id}",3));
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.delete(PERSON_CONTROLLER_PATH+"/{id}",3L));
 
         resultActions
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.persons[2].id").doesNotExist());
-
-
+                .andExpect(status().isAccepted());
 
 
     }

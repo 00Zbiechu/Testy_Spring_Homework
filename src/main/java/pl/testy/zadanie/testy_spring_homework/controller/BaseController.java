@@ -1,5 +1,6 @@
 package pl.testy.zadanie.testy_spring_homework.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,21 +19,20 @@ public abstract class BaseController<D,S extends BaseService>{
     }
 
     @PostMapping
-    List<D> create(@RequestBody D dto){
-        getService().create(dto);
-        return List.of(dto);
+    public ResponseEntity<D> create(@RequestBody D dto){
+
+        return new ResponseEntity<>((D) getService().create(dto),HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody D dto){
-        getService().update(id,dto);
-        return ResponseEntity.ok("update wykonany");
+    public ResponseEntity<D> update(@PathVariable Long id, @RequestBody D dto){
+        return new ResponseEntity<>((D) getService().update(id,dto),HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> delete(@PathVariable Long id){
         getService().delete(id);
-        return ResponseEntity.ok("Usunięto");
+        return new ResponseEntity<>("Deleted",HttpStatus.ACCEPTED);
     }
 
 }
