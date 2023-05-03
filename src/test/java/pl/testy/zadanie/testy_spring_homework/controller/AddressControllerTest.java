@@ -3,24 +3,18 @@ package pl.testy.zadanie.testy_spring_homework.controller;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import pl.testy.zadanie.testy_spring_homework.common.AddressTestDataProvider;
 import pl.testy.zadanie.testy_spring_homework.common.BaseApiTest;
-import pl.testy.zadanie.testy_spring_homework.common.PersonTestDataProvider;
 import pl.testy.zadanie.testy_spring_homework.mapper.AddressMapper;
-import pl.testy.zadanie.testy_spring_homework.mapper.PersonMapper;
 import pl.testy.zadanie.testy_spring_homework.model.AddressDTO;
 import pl.testy.zadanie.testy_spring_homework.model.AddressListResponse;
-import pl.testy.zadanie.testy_spring_homework.model.PersonDTO;
 import pl.testy.zadanie.testy_spring_homework.repository.AddressRepository;
 
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class AddressControllerTest extends BaseApiTest {

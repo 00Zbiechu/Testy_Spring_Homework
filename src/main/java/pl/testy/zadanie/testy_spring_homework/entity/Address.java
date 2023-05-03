@@ -1,7 +1,13 @@
 package pl.testy.zadanie.testy_spring_homework.entity;
 
-import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -9,6 +15,8 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Audited
+@EntityListeners(AuditingEntityListener.class)
 public class Address {
 
     @Id
@@ -20,6 +28,12 @@ public class Address {
     private String flatNumber;
     private boolean defaultAddress;
 
+    @CreatedBy
+    private String createdBy;
+    @LastModifiedBy
+    private String modifiedBy;
+
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
