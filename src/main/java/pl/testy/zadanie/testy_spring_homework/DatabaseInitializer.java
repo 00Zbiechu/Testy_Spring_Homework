@@ -18,42 +18,8 @@ public class DatabaseInitializer {
 
     private final AddressRepository addressRepository;
 
-    @PostConstruct
-    public void initDatabase() {
-
-        Person person = Person.builder()
-                .firstName("Mateusz")
-                .lastName("Zbiewski")
-                .birthDate(LocalDate.now())
-                .build();
-
-        personReposiotry.save(person);
 
 
-        Address address = Address.builder()
-                .communeCode("75-400")
-                .streetName("Podgorna")
-                .flatNumber("12")
-                .houseNumber("13")
-                .defaultAddress(false)
-                .person(person)
-                .build();
 
-        addressRepository.save(address);
-
-
-        Address addressSecond = Address.builder()
-                .communeCode("75-420")
-                .streetName("Baltycka")
-                .flatNumber("12")
-                .houseNumber("13")
-                .defaultAddress(true)
-                .person(person)
-                .build();
-
-        addressRepository.save(addressSecond);
-
-
-    }
 
 }
