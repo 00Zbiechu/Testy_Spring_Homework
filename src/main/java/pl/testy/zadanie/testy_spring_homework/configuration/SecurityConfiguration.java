@@ -20,8 +20,9 @@ public class SecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/api/address/all").permitAll()
-                .antMatchers("/**").hasRole("Test")
+                .antMatchers("/api/address/**").permitAll()
+                .antMatchers("/api/person/**").permitAll()
+                .antMatchers("/api/address/all").hasRole("Test")
                 .and()
                 .build();
 

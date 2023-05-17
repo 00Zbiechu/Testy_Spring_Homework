@@ -34,7 +34,7 @@ public class AddressController extends BaseController<AddressDTO, AddressService
     @PostConstruct
     public void save(){
         AddressDTO addressDTO = AddressDTO.builder()
-                .streetName("Budowniczych")
+                .streetName("Kwiatowa")
                 .build();
 
         addressService.create(addressDTO);
