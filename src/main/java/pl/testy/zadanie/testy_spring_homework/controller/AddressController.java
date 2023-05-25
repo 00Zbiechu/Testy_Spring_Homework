@@ -1,6 +1,8 @@
 package pl.testy.zadanie.testy_spring_homework.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.testy.zadanie.testy_spring_homework.component.AddressRevision;
 import pl.testy.zadanie.testy_spring_homework.component.AddressRevisionDTO;

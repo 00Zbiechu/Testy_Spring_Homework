@@ -1,19 +1,20 @@
-package pl.testy.zadanie.testy_spring_homework.model;
+package pl.testy.zadanie.testy_spring_homework.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
+@Setter
 @Entity
 @Builder
 @AllArgsConstructor
-@Table(name = "person")
+@Table(name = "person_entity")
 @NoArgsConstructor
+@Transactional
 public class PersonEntity {
 
     @Id
@@ -33,4 +34,9 @@ public class PersonEntity {
 
     @Column(nullable = false)
     private Integer active;
+
+    @OneToMany(mappedBy = "personEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Role> roleEntity;
+
+
 }

@@ -6,23 +6,22 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import pl.testy.zadanie.testy_spring_homework.controller.JwtProperties;
+import pl.testy.zadanie.testy_spring_homework.entity.PersonEntity;
+import pl.testy.zadanie.testy_spring_homework.entity.TokenBlacklistEntity;
 import pl.testy.zadanie.testy_spring_homework.exceptions.InvalidTokenException;
 import pl.testy.zadanie.testy_spring_homework.exceptions.NotAuthorizedException;
 import pl.testy.zadanie.testy_spring_homework.exceptions.TokenUserMismatchException;
+import pl.testy.zadanie.testy_spring_homework.exceptions.UserAlreadyExist;
 import pl.testy.zadanie.testy_spring_homework.model.*;
 import pl.testy.zadanie.testy_spring_homework.repository.TokenBlacklistRepository;
 
 import java.sql.Timestamp;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static io.jsonwebtoken.SignatureAlgorithm.HS512;
 
@@ -85,6 +84,29 @@ public class JwtServiceImpl implements JwtService {
         }catch(Exception ex){
         }
         return CheckTokenDTO.builder().isValid(Boolean.FALSE).build();
+    }
+
+    @Override
+    public String getUsernameFromAccessToken(String accessToken) {
+        return getUsernameFromToken(accessToken, jwtProperties.getAccessTokenSecret());
+    }
+
+    @Override
+    public void register(RegisterUserDTO usernamePasswordDTO) {
+        Optional<PersonEntity> personEntityOptional = validateUsernameIsNotAlreadyTaken(usernamePasswordDTO);
+
+        personEntityOptional.ifPresent(user -> throwUserAlreadyExistException(user));
+        userService.createUser(usernamePasswordDTO.getUsername(),usernamePasswordDTO.getEmail(),usernamePasswordDTO.getPassword());
+    }
+
+    private Optional<PersonEntity> validateUsernameIsNotAlreadyTaken(UsernamePasswordDTO usernamePasswordDTO) {
+        Optional<PersonEntity> personEntityOptional =  userService.findOptionalByUsername(usernamePasswordDTO.getUsername());
+        return personEntityOptional;
+    }
+
+    private void throwUserAlreadyExistException(PersonEntity user) {
+
+
     }
 
     private AuthenticationDTO buildAuthenicationToken(PersonEntity userEntity) {

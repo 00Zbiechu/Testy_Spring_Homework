@@ -2,6 +2,7 @@ package pl.testy.zadanie.testy_spring_homework.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -23,6 +24,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({NotAuthorizedException.class})
     public ResponseEntity<ErrorDTO> handleUserNotFoundException(NotAuthorizedException ex){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(ErrorDTO.builder()
+                        .code("20230126:162013")
+                        .message(ex.getMessage())
+                        .timestamp(Timestamp.valueOf(LocalDateTime.now()))
+                        .build());
+    }
+
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    public ResponseEntity<ErrorDTO> handleMethodNotValidArgumentException(MethodArgumentNotValidException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ErrorDTO.builder()
                         .code("20230126:162013")
                         .message(ex.getMessage())

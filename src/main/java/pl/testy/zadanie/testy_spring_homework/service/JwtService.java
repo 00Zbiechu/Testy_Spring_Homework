@@ -12,4 +12,8 @@ public interface JwtService {
     AuthenticationDTO refreshToken(TokenDTO tokenDTO) throws InvalidTokenException;
 
     CheckTokenDTO checkToken(AccessTokenDTO accessTokenDTO);
+
+    String getUsernameFromAccessToken(String accessToken);
+
+    void register(RegisterUserDTO usernamePasswordDTO);
 }

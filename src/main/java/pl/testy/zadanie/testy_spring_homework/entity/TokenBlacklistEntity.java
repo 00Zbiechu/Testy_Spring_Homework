@@ -1,4 +1,4 @@
-package pl.testy.zadanie.testy_spring_homework.model;
+package pl.testy.zadanie.testy_spring_homework.entity;
 
 
 import lombok.*;
