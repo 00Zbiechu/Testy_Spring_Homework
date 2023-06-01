@@ -41,6 +41,7 @@ public class SecurityConfiguration {
                 .antMatchers("/auth/register").permitAll()
                 .antMatchers("/auth/logout").hasRole("USER")
                 .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/aspect-test").permitAll()
                 .antMatchers("/api/address/all").hasRole("USER")
                 .anyRequest()
                 .authenticated()
